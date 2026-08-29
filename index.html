@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fahim Shahriar Shakkhor — SWE, Site Reliability</title>
+<meta name="description" content="Fahim Shahriar Shakkhor — Software Engineer, Site Reliability at Google. Portfolio, experience, and competitive programming background.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0B1120;
+    --surface: #121B2E;
+    --surface-2: #17223A;
+    --line: #253357;
+    --text: #E7ECF5;
+    --text-dim: #8B96AC;
+    --ok: #34D399;
+    --ok-dim: #163C31;
+    --warn: #F5A623;
+    --warn-dim: #3D2E0E;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  ::selection { background: var(--ok); color: #06110D; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Top status bar ---------- */
+  .statusbar {
+    border-bottom: 1px solid var(--line);
+    background: rgba(11, 17, 32, 0.85);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .statusbar-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-dim);
+  }
+  .statusbar-left { display: flex; align-items: center; gap: 8px; }
+  .pulse-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--ok);
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.6);
+    animation: pulse 2.4s infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55); }
+    70%  { box-shadow: 0 0 0 7px rgba(52, 211, 153, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+  }
+  .statusbar-right a { text-decoration: none; color: var(--text-dim); }
+  .statusbar-right a:hover { color: var(--text); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 72px 0 56px;
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--ok);
+    letter-spacing: 0.06em;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .eyebrow .bracket { color: var(--text-dim); }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(34px, 5.6vw, 54px);
+    line-height: 1.08;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  .role {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(17px, 2.4vw, 20px);
+    color: var(--text-dim);
+    margin: 0 0 28px;
+  }
+  .role strong { color: var(--text); font-weight: 600; }
+
+  .summary {
+    max-width: 620px;
+    color: #C4CCDC;
+    font-size: 15.5px;
+    margin-bottom: 34px;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    text-decoration: none;
+    padding: 9px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    color: var(--text);
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .btn:hover { border-color: var(--ok); background: var(--surface-2); }
+  .btn.primary {
+    background: var(--ok);
+    color: #06170F;
+    border-color: var(--ok);
+    font-weight: 600;
+  }
+  .btn.primary:hover { background: #2ED19A; }
+
+  /* ---------- Metrics strip ---------- */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--line);
+  }
+  .metric {
+    padding: 22px 20px;
+    border-right: 1px solid var(--line);
+  }
+  .metric:last-child { border-right: none; }
+  .metric-value {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: clamp(20px, 3vw, 26px);
+    color: var(--ok);
+  }
+  .metric-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 640px) {
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+    .metric:nth-child(2) { border-right: none; }
+  }
+
+  /* ---------- Section headers ---------- */
+  section { padding: 56px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .section-head .idx {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 2px 7px;
+  }
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* ---------- Deploy log (experience) ---------- */
+  .log {
+    position: relative;
+    padding-left: 26px;
+  }
+  .log::before {
+    content: '';
+    position: absolute;
+    left: 5px; top: 6px; bottom: 6px;
+    width: 1px;
+    background: var(--line);
+  }
+  .entry {
+    position: relative;
+    padding-bottom: 30px;
+  }
+  .entry:last-child { padding-bottom: 0; }
+  .entry::before {
+    content: '';
+    position: absolute;
+    left: -26px; top: 5px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--ok);
+  }
+  .entry.past::before { border-color: var(--text-dim); }
+
+  .entry-meta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .tag {
+    font-size: 10.5px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    border: 1px solid var(--ok-dim);
+    color: var(--ok);
+    background: var(--ok-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .tag.past { border-color: var(--line); color: var(--text-dim); background: transparent; }
+
+  .entry-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 17px;
+    margin: 0 0 2px;
+  }
+  .entry-org {
+    color: var(--text-dim);
+    font-size: 13.5px;
+    margin-bottom: 10px;
+  }
+  .entry ul {
+    margin: 0;
+    padding-left: 18px;
+    color: #C4CCDC;
+    font-size: 14.5px;
+  }
+  .entry li { margin-bottom: 5px; }
+  .entry p.plain {
+    color: #C4CCDC;
+    font-size: 14.5px;
+    margin: 0;
+  }
+
+  /* ---------- Skills ---------- */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .skill-card .k {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--warn);
+    margin-bottom: 6px;
+    letter-spacing: 0.03em;
+  }
+  .skill-card .v {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+  }
+  @media (max-width: 640px) {
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Honors ---------- */
+  .honors {
+    display: grid;
+    gap: 10px;
+  }
+  .honor {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 12px;
+    align-items: start;
+    padding: 12px 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+  .honor .star { color: var(--warn); font-family: var(--font-mono); }
+  .honor .t { font-size: 14.5px; color: #DDE3EF; }
+  .honor .t strong { color: var(--text); }
+
+  /* ---------- Education ---------- */
+  .edu-item { margin-bottom: 18px; }
+  .edu-item:last-child { margin-bottom: 0; }
+  .edu-degree { font-family: var(--font-display); font-weight: 600; font-size: 16px; }
+  .edu-school { color: var(--text-dim); font-size: 13.5px; margin-top: 2px; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 40px 0 60px;
+    text-align: center;
+  }
+  .footer-status {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="statusbar">
+    <div class="statusbar-inner">
+      <div class="statusbar-left">
+        <span class="pulse-dot"></span>
+        <span>fahim.status — operational</span>
+      </div>
+      <div class="statusbar-right">
+        <a href="mailto:fsshakkhor@gmail.com">fsshakkhor@gmail.com</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <section class="hero" style="border-bottom:none; padding-bottom:0;">
+      <div class="eyebrow"><span class="bracket">[</span>SYSTEM STATUS<span class="bracket">]</span> All services operational</div>
+      <h1>Fahim Shahriar Shakkhor</h1>
+      <p class="role">Software Engineer, Site Reliability <strong>@ Google</strong> · Toronto, ON</p>
+      <p class="summary">
+        SRE at Google with 4+ years of industry experience — turnup automation, integration &amp; load testing,
+        and applying LLMs to production reliability. Before that: a decade spent competitively solving
+        problems, culminating in 7,000+ solved across contests and judges.
+      </p>
+      <div class="hero-links">
+        <a class="btn primary" href="mailto:fsshakkhor@gmail.com">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/fsshakkhor" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </section>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">4+</div>
+        <div class="metric-label">Years in industry</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">7,000+</div>
+        <div class="metric-label">Problems solved</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">Top 200</div>
+        <div class="metric-label">Meta Hacker Cup '22</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">20+</div>
+        <div class="metric-label">Teams using my tooling</div>
+      </div>
+    </div>
+
+    <section id="experience">
+      <div class="section-head"><span class="idx">01</span><h2>Deploy log — Experience</h2></div>
+      <div class="log">
+
+        <div class="entry">
+          <div class="entry-meta"><span class="tag">current</span> Dec 2022 — Present · 3 yr 9 mo</div>
+          <div class="entry-title">Software Engineer, Site Reliability</div>
+          <div class="entry-org">Google · Waterloo, ON — Cloud Key &amp; Secret Management</div>
+          <ul>
+            <li>Built an internal, AI-powered tool now adopted by 20+ teams across Google.</li>
+            <li>Drove the "Fast Cloud" turnup effort across multiple services.</li>
+            <li>Hosting the 2026 summer intern cohort.</li>
+          </ul>
+        </div>
+
+        <div class="entry past">
+          <div class="entry-meta"><span class="tag past">past</span> Apr 2022 — Oct 2022 · 7 mo</div>
+          <div class="entry-title">Programming Trainer</div>
+          <div class="entry-org">United International University · Dhaka, Bangladesh</div>
+          <ul>
+            <li>Taught advanced and intermediate competitive programming to students.</li>
+            <li>Ran mock contests simulating real-time competitive environments.</li>
+            <li>Served as onsite judge and problem setter for the UIU programming contest.</li>
+          </ul>
+        </div>
+
+        <div class="entry past">
+          <div class="entry-meta"><span class="tag past">past</span> Dec 2021 — Mar 2022 · 4 mo</div>
+          <div class="entry-title">Backend Developer</div>
+          <div class="entry-org">LATOKEN</div>
+          <p class="plain">Integrated a new blockchain into LATOKEN's pipeline — deployed a decentralized node into production, built backend APIs for RPC calls, and developed the business logic on top.</p>
+        </div>
+
+        <div class="entry past">
+          <div class="entry-meta"><span class="tag past">past</span> Jul 2021 — Dec 2021 · 6 mo</div>
+          <div class="entry-title">Software Engineer</div>
+          <div class="entry-org">TigerIT Bangladesh Ltd. · Dhaka, Bangladesh</div>
+          <p class="plain">Contributed to a legacy codebase spanning REST and SOAP APIs, implemented business logic for new features, and helped write the core logic for a database migration.</p>
+        </div>
+
+        <div class="entry past">
+          <div class="entry-meta"><span class="tag past">past</span> Mar 2020 — Jun 2021 · 1 yr 4 mo</div>
+          <div class="entry-title">Software Engineer</div>
+          <div class="entry-org">Aubichol Intelligent Technologies · Dhaka, Bangladesh</div>
+          <p class="plain">Developed backend APIs pulling from public and private data sources into an existing pipeline, and worked on machine-learning-based statistics generation.</p>
+        </div>
+
+        <div class="entry past">
+          <div class="entry-meta"><span class="tag past">past</span> Nov 2018 — Jan 2019 · 3 mo</div>
+          <div class="entry-title">Software Engineer Intern</div>
+          <div class="entry-org">Samsung R&amp;D Institute Bangladesh · Dhaka, Bangladesh</div>
+          <p class="plain">Worked on audio quality improvement for a VoIP application.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-head"><span class="idx">02</span><h2>Capabilities</h2></div>
+      <div class="skills-grid">
+        <div class="skill-card"><div class="k">CORE</div><div class="v">Process Automation</div></div>
+        <div class="skill-card"><div class="k">CORE</div><div class="v">System Integration Testing</div></div>
+        <div class="skill-card"><div class="k">CORE</div><div class="v">System Monitoring</div></div>
+      </div>
+    </section>
+
+    <section id="honors">
+      <div class="section-head"><span class="idx">03</span><h2>Honors &amp; certifications</h2></div>
+      <div class="honors">
+        <div class="honor"><span class="star">★</span><span class="t"><strong>Top 200 (Global)</strong> — Meta Hacker Cup, 2022</span></div>
+        <div class="honor"><span class="star">★</span><span class="t"><strong>Honorable Mention</strong> — ICPC Asia-West Continent Final, 2020</span></div>
+        <div class="honor"><span class="star">★</span><span class="t"><strong>Problem Solving (Advanced)</strong> certification</span></div>
+        <div class="honor"><span class="star">★</span><span class="t"><strong>ACM ICPC Dhaka Regional</strong> — 2018 &amp; 2019</span></div>
+        <div class="honor"><span class="star">★</span><span class="t"><strong>SUST Inter University Programming Contest</strong>, 2017</span></div>
+        <div class="honor"><span class="star">★</span><span class="t"><strong>National Champion</strong> — Creative Talent Hunt Competition (Mathematics &amp; Computer Science)</span></div>
+        <div class="honor"><span class="star">★</span><span class="t"><strong>Bangladesh National Mathematics Olympiad</strong></span></div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="section-head"><span class="idx">04</span><h2>Education</h2></div>
+      <div class="edu-item">
+        <div class="edu-degree">Bachelor's Degree, Computer Science</div>
+        <div class="edu-school">Islamic University of Technology · 2016 — 2020</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">Higher Secondary, Science</div>
+        <div class="edu-school">Notre Dame College</div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-status">
+        <span class="pulse-dot"></span>
+        <span>© <span id="year"></span> Fahim Shahriar Shakkhor — built &amp; deployed like everything else I ship</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
